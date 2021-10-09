@@ -5,8 +5,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.streaming.dstream.{DStream, ReceiverInputDStream}
-import org.apache.spark.streaming.{Seconds, StreamingContext}
+import org.apache.spark.streaming.dstream.{ DStream, ReceiverInputDStream }
+import org.apache.spark.streaming.{ Seconds, StreamingContext }
 import org.apache.spark.streaming.kafka010._
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
@@ -16,7 +16,7 @@ import java.sql.Date
 object PlayGround {
 
   private val HOST = "localhost"
-  val kafkaParams = Map[String, Object](
+  private val kafkaParams = Map[String, Object](
     "bootstrap.servers"  -> "localhost:9092",
     "key.deserializer"   -> classOf[StringDeserializer],
     "value.deserializer" -> classOf[StringDeserializer],
@@ -25,10 +25,10 @@ object PlayGround {
     "enable.auto.commit" -> (false: java.lang.Boolean)
   )
 
-  val BATCH_INTERVAL_IN_SECONDS = 2
-  val spark                     = SparkSession.builder().appName("play-ground").master("local[2]").getOrCreate()
-  val ssc                       = new StreamingContext(spark.sparkContext, Seconds(BATCH_INTERVAL_IN_SECONDS))
-  val path                      = "src/main/resources/data"
+  private val BATCH_INTERVAL_IN_SECONDS = 2
+  private val spark                     = SparkSession.builder().appName("play-ground").master("local[2]").getOrCreate()
+  private val ssc                       = new StreamingContext(spark.sparkContext, Seconds(BATCH_INTERVAL_IN_SECONDS))
+  private val path                      = "src/main/resources/data"
   ssc.fileStream(path)
 
   private val LISTENING_SOCKET = 9090

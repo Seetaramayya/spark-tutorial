@@ -1,9 +1,7 @@
 package learn.spark.basics
 
 import learn.spark.domain.Objects.carsSchema
-import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types._
+import org.apache.spark.sql.{ DataFrame, SparkSession }
 
 /** This is an example of reading zipped source / compressed source
   * along with DateType parsing

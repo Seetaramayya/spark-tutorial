@@ -1,7 +1,7 @@
 package learn.spark.streaming
 
 import learn.spark.domain.Objects.carsSchema
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.{ DataFrame, SparkSession }
 import org.apache.spark.sql.functions._
 
 // Structured streaming

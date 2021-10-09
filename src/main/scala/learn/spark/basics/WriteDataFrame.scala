@@ -1,6 +1,6 @@
 package learn.spark.basics
 
-import org.apache.spark.sql.{SaveMode, SparkSession}
+import org.apache.spark.sql.{ SaveMode, SparkSession }
 
 object WriteDataFrame extends App {
   private val sourcePath = "src/main/resources/data/cars/cars.json"
