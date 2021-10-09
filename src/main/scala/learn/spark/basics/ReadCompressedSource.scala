@@ -1,5 +1,6 @@
 package learn.spark.basics
 
+import learn.spark.domain.Objects.carsSchema
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
@@ -15,11 +16,12 @@ object ReadCompressedSource extends App {
     .config("spark.master", "local[2]") // or .master("local[2]")
     .getOrCreate()
 
+  // if the date format is not mentioned and it is not ISO date format the spark returns null
   val compressedDataFrame: DataFrame = spark.read
     .format("json")
-    .option("inferSchema", "true")
-    .option("dateFormat", "YYYY-MM-dd") //
-    .option("compression", "gzip")      // possible values
+    .schema(carsSchema)                 // if the field is in dateType then its format needs to be defined
+    .option("dateFormat", "YYYY-MM-dd") // if the date format is not mentioned and spark returns null
+    .option("compression", "gzip")      // possible values uncompressed, bzip2, gzip, lz4, snappy, deflate
     .load(zipPath)
 
   compressedDataFrame.show()
