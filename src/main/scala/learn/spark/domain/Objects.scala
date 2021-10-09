@@ -25,7 +25,7 @@ object Objects {
       StructField("Horsepower", LongType),
       StructField("Weight_in_lbs", LongType),
       StructField("Acceleration", DoubleType),
-      StructField("Year", StringType),
+      StructField("Year", DateType),
       StructField("Origin", StringType)
     )
   )

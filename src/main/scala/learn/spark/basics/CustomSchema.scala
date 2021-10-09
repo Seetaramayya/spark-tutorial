@@ -1,7 +1,7 @@
 package learn.spark.basics
 
+import learn.spark.domain.Objects.carsSchema
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.types._
 
 object CustomSchema extends App {
   private val fileName = "src/main/resources/data/cars.json"
@@ -11,19 +11,6 @@ object CustomSchema extends App {
     .config("spark.master", "local")
     .getOrCreate()
 
-  private val carsSchema = StructType(
-    Array(
-      StructField("Name", StringType),
-      StructField("Miles_per_Gallon", DoubleType),
-      StructField("Cylinders", LongType),
-      StructField("Displacement", DoubleType),
-      StructField("Horsepower", LongType),
-      StructField("Weight_in_lbs", LongType),
-      StructField("Acceleration", DoubleType),
-      StructField("Year", DateType),
-      StructField("Origin", StringType)
-    )
-  )
   private val dataFrame = spark.read
     .format("json")
     .schema(carsSchema)
