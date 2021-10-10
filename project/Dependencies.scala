@@ -1,7 +1,8 @@
 import sbt._
 
 object Dependencies {
-  private val sparkVersion = "3.1.2"
+  private val sparkVersion    = "3.1.2"
+  private val postgresVersion = "42.2.24"
 
   // https://github.com/apache/spark
   lazy private val sparkCore = "org.apache.spark" %% "spark-core" % sparkVersion
@@ -18,13 +19,15 @@ object Dependencies {
   // THIS IS FOR LOW LEVEL INTEGRATIONS
   lazy private val sparkStreamingKafka = "org.apache.spark" %% "spark-streaming-kafka-0-10" % sparkVersion
 
+  lazy private val postgresql = "org.postgresql" % "postgresql" % postgresVersion
+
   lazy private val mongoScalaDriver = "org.mongodb.scala" %% "mongo-scala-driver" % "4.3.2"
 
   // https://github.com/scalatest/scalatest
   lazy private val scalaTest = "org.scalatest" %% "scalatest" % "3.2.9" % "test"
 
   lazy private val compileDependencies: Seq[ModuleID] =
-    Seq(mongoScalaDriver, sparkCore, sparkSql, sparkSqlKafka, sparkStreaming, sparkStreamingKafka)
+    Seq(mongoScalaDriver, postgresql, sparkCore, sparkSql, sparkSqlKafka, sparkStreaming, sparkStreamingKafka)
 
   lazy private val testDependencies: Seq[ModuleID] = Seq(scalaTest)
 

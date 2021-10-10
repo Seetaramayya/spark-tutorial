@@ -2,6 +2,12 @@
 
   All the learning points are noted down [here](./learning-notes.md) for future references.
 
+### Start docker containers
+
+```shell
+docker compose up postgres
+```
+
 # Resources
 
 - [Structured streaming kafka integration](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html)
