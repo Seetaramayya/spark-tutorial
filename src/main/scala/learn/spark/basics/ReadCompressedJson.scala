@@ -6,7 +6,7 @@ import org.apache.spark.sql.{ DataFrame, SparkSession }
 /** This is an example of reading zipped source / compressed source
   * along with DateType parsing
   */
-object ReadCompressedSource extends App {
+object ReadCompressedJson extends App {
   private val zipPath = "src/main/resources/data/cars.gz"
   private val spark = SparkSession
     .builder()

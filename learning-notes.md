@@ -16,9 +16,14 @@ val spark = SparkSession.builder()
 
 - format
 - schema or `inferSchama -> true` option
-- zero or more options such as `mode` (there are `failFast`, `dropMalformed` and `permissive` which is default)
-    - instead of sending multiple chained `option`, `options(Map())` can be used
+- zero or more options such as 
+    - `mode` (there are `failFast`, `dropMalformed` and `permissive` which is default)
+    - `compression` -> (`uncompressed`, `bzip2`, `gzip`, `lz4`, `snappy`, `deflate`)
+    - `dateFormat` needs to be defined when there are DateType in the source and explicitly if it mentioned 
+       otherwise spark returns `null` if they are not in ISO format
+- instead of configuring multiple `.option`s in chained fashion, `.options(Map())` can be used 
 - load(path)
+
 
 ```scala
 val dataframe = spark.read

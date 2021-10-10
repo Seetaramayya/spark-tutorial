@@ -2,7 +2,7 @@ package learn.spark.basics
 
 import org.apache.spark.sql.SparkSession
 
-object ReadMovies extends App {
+object ReadMoviesJson extends App {
   private val moviesFile = "src/main/resources/data/movies.json"
 
   private val spark = SparkSession

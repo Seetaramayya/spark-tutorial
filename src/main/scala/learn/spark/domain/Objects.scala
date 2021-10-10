@@ -29,4 +29,12 @@ object Objects {
       StructField("Origin", StringType)
     )
   )
+
+  val stocksSchema: StructType = StructType(
+    Array(
+      StructField("symbol", StringType),
+      StructField("date", DateType),
+      StructField("price", DoubleType)
+    )
+  )
 }
