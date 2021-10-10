@@ -19,7 +19,7 @@ object ReadCSV extends App {
   private val path = "src/main/resources/data/stocks.csv"
   private val spark = SparkSession
     .builder()
-    .config("spark.sql.legacy.timeParserPolicy", "LEGACY") // CORRECTED or LEGACY
+    .config("spark.sql.legacy.timeParserPolicy", "CORRECTED") // CORRECTED or LEGACY
     .appName("Reading CSV")
     .master("local[2]")
     .getOrCreate()
@@ -29,7 +29,7 @@ object ReadCSV extends App {
     .option("header", "true")
     .option("nullValue", "")
     .option("dateFormat", "MMM d yyyy") // This format works for both LEGACY and CORRECTED
-//    .option("dateFormat", "MMM dd yyyy") // LEGACY date format which will not work for new CORRECTED time parser
+//    .option("dateFormat", "MMM dd YYYY") // LEGACY date format which will not work for new CORRECTED time parser
     .option("sep", ",")
     .csv(path)
 

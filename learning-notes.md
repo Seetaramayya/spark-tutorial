@@ -21,6 +21,12 @@ val spark = SparkSession.builder()
     - `compression` -> (`uncompressed`, `bzip2`, `gzip`, `lz4`, `snappy`, `deflate`)
     - `dateFormat` needs to be defined when there are DateType in the source and explicitly if it mentioned 
        otherwise spark returns `null` if they are not in ISO format
+      - `MMM dd YYYY` date format works with spark 2.4 and bellow it does not work with spark 3.0 and above,
+      this can be make it work by setting `spark.sql.legacy.timeParserPolicy` -> `LEGACY` 
+      ```scala
+         config("spark.sql.legacy.timeParserPolicy", "LEGACY")
+       ```
+      or change the format to `MMM d yyyy`
 - instead of configuring multiple `.option`s in chained fashion, `.options(Map())` can be used 
 - load(path)
 
