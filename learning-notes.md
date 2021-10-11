@@ -74,3 +74,12 @@ All possible examples are writen [here](src/main/scala/learn/spark/aggregations/
 - `count`
 - `countDistinct` or `count(distinct(col))`
 - `approx_count_distinct`
+
+### Joins
+
+- `inner`
+- `left_outer` : everything inner join + all rows in the LEFT table with nulls if the data is missing in the right
+- `right_outer`: everything inner join + all rows in the RIGHT table with nulls if the data is missing in the left
+- `outer` : everything in the inner join + all the rows in BOTH tables, with nulls if the data is missing
+- `left_semi`: everything in the left DF for which there is a row in the right DF satisfying the condition
+- `left_anti`: everything in the left DF for which there is NO row in the right DF satisfying the condition
