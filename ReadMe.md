@@ -29,3 +29,4 @@ select column_name, data_type, is_nullable from information_schema.columns where
 - [Spark Streaming + Kafka Integration Guide](https://spark.apache.org/docs/latest/streaming-kafka-0-10-integration.html)
 - [Spark streaming Example](https://github.com/sparkbyexamples/spark-examples/blob/master/spark-streaming/src/main/scala/com/sparkbyexamples/spark/streaming/kafka/json/SparkStreamingConsumerKafkaJson.scala)
 - [Spark streaming with Kafka](https://sparkbyexamples.com/spark/spark-streaming-with-kafka/)
+- [Connect to MongoDB](https://mongodb.github.io/mongo-java-driver/4.2/driver-scala/tutorials/connect-to-mongodb/)
