@@ -53,3 +53,16 @@ carsDF.write
     .mode(SaveMode.Overwrite)
     .save("src/main/resources/data/cars/cars-duplicate.json")
 ```
+
+### Selection and Expression
+
+All possible examples are writen [here](src/main/scala/learn/spark/basics/ColumnsAndExpressions.scala)
+
+- select columns with names 
+- Column selection can be done in the following way
+  - `col`
+  - `column`
+  - `expr`
+  - `$` string interpolation
+  - `'` scala symbols
+  
