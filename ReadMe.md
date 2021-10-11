@@ -2,10 +2,21 @@
 
   All the learning points are noted down [here](./learning-notes.md) for future references.
 
-### Start docker containers
+### PostgreSQL commands
 
 ```shell
-docker compose up postgres
+docker compose up postgres # to start the container
+docker exec -it postgres psql -U admin -d seeta # to connect to PSQL
+
+
+# to find all the table names (except system tables)
+select * from information_schema.tables where table_schema not in ('information_schema', 'pg_catalog');
+select * from information_schema.tables where table_schema = 'public';
+select * from information_schema.columns where table_schema = 'information_schema';
+
+# to describe table or use information_schema 
+\d employees
+select column_name, data_type, is_nullable from information_schema.columns where table_name = 'employees';
 ```
 
 # Resources

@@ -7,10 +7,13 @@ object WriteParquet extends App {
   private val targetLocation = "target/cars.parquet"
   private val spark = SparkSession
     .builder()
-    .appName("Write in parquet format")
+    .appName("Write in parquet format with snappy compression")
     .master("local[2]")
     .getOrCreate()
 
   private val carsDF = spark.read.json(source)
-  carsDF.write.mode(SaveMode.Overwrite).parquet(targetLocation)
+  carsDF.write
+    .mode(SaveMode.Overwrite)
+    .option("compression", "snappy")
+    .parquet(targetLocation)
 }
