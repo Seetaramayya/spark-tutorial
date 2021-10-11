@@ -66,3 +66,11 @@ All possible examples are writen [here](src/main/scala/learn/spark/basics/Column
   - `$` string interpolation
   - `'` scala symbols
   
+
+### Aggregations and Grouping
+
+All possible examples are writen [here](src/main/scala/learn/spark/aggregations/AggregationsAndGrouping.scala)
+
+- `count`
+- `countDistinct` or `count(distinct(col))`
+- `approx_count_distinct`
