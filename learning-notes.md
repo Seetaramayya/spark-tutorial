@@ -98,3 +98,11 @@ Few examples are writen [here](src/main/scala/learn/spark/basics/ManageNulls.sca
 - To drop nulls `na` can be used. For example `df.select(...).na.drop()`. Don't get confused with `df.select().drop()` 
 which removes columns but `na` removes rows
 - Replace null with `na.fill...` some values. `df.select().na.fill()`
+- Some expr functions which are not intuitive
+
+### Datasets
+
+Few examples are writen in package [dataset](src/main/scala/learn/spark/datasets)
+
+- Datasets are typed data frames or distributed collections of JVM objects
+- Use `Datasets` if type safety is important. Use `Dataframes` if performance is important
