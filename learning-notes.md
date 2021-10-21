@@ -83,3 +83,18 @@ All possible examples are writen [here](src/main/scala/learn/spark/aggregations/
 - `outer` : everything in the inner join + all the rows in BOTH tables, with nulls if the data is missing
 - `left_semi`: everything in the left DF for which there is a row in the right DF satisfying the condition
 - `left_anti`: everything in the left DF for which there is NO row in the right DF satisfying the condition
+
+### Filters
+
+Few examples are writen [here](src/main/scala/learn/spark/basics/ComplexTypes.scala)
+
+### Managing Nulls
+
+Few examples are writen [here](src/main/scala/learn/spark/basics/ManageNulls.scala)
+
+- `coalesec`: Returns the first column that is not null, or null if all inputs are null
+- `isNull` and `isNotNull` are useful when filtering
+- Nulls can be first or last when ordering(`desc_nulls_last` or `asc_nulls_first` etc...)
+- To drop nulls `na` can be used. For example `df.select(...).na.drop()`. Don't get confused with `df.select().drop()` 
+which removes columns but `na` removes rows
+- Replace null with `na.fill...` some values. `df.select().na.fill()`
