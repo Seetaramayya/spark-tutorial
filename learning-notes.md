@@ -106,3 +106,85 @@ Few examples are writen in package [dataset](src/main/scala/learn/spark/datasets
 
 - Datasets are typed data frames or distributed collections of JVM objects
 - Use `Datasets` if type safety is important. Use `Dataframes` if performance is important
+
+### Spark SQL
+
+To run spark container use docker compose 
+
+```shell
+docker-compose -f ./spark-cluster-docker-compose.yml up
+docker exec -it <master-container-name> bash
+```
+
+#### SQL Statements
+
+Execute `spark-sql` which gives sql like prompt
+
+```sparksql
+show databases;
+create database seeta;
+use seeta;
+
+-- this creates managed table, that means dropping table means loosing data
+create table persons(id integer, name string); 
+
+-- following data will be managed in <>/spark-warehouse/seeta.db/persons/
+insert into persons values (1, "Martin Odersky"), (2, "Matei Zaharia"); -- Matei Zaharia who started spark, of course no need to introduce Martin
+select * from persons;
+describe extended persons;
+
+-- this creates external table that means metadata is not managed by spark 
+-- drop table does not loose data
+create table flights(origin string, destination string) using csv options(header true,path "/opt/bitnami/seeta/data/flights");
+insert into flights values ("Vishakhapatnam", "Amsterdam"), ("Chennai", "Amsterdam");
+```
+
+- describe gives following type of output for MANAGED table
+
+```shell
+id	int	NULL
+name	string	NULL
+
+# Detailed Table Information
+Database	seeta
+Table	persons
+Owner	spark
+Created Time	Fri Oct 22 06:22:32 UTC 2021
+Last Access	UNKNOWN
+Created By	Spark 3.1.2
+Type	MANAGED
+Provider	hive
+Table Properties	[transient_lastDdlTime=1634883758]
+Statistics	33 bytes
+Location	file:/opt/bitnami/spark-warehouse/seeta.db/persons
+Serde Library	org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+InputFormat	org.apache.hadoop.mapred.TextInputFormat
+OutputFormat	org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+Storage Properties	[serialization.format=1]
+Partition Provider	Catalog
+Time taken: 0.064 seconds, Fetched 20 row(s)
+```
+
+- describe gives following type of output for EXTERNAL table
+
+```shell
+spark-sql> describe extended flights;
+origin	string	NULL
+destination	string	NULL
+
+# Detailed Table Information
+Database	seeta
+Table	flights
+Owner	spark
+Created Time	Fri Oct 22 06:23:02 UTC 2021
+Last Access	UNKNOWN
+Created By	Spark 3.1.2
+Type	EXTERNAL
+Provider	csv
+Location	file:/opt/bitnami/seeta/data/flights
+Serde Library	org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+InputFormat	org.apache.hadoop.mapred.SequenceFileInputFormat
+OutputFormat	org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat
+Storage Properties	[header=true]
+Time taken: 0.065 seconds, Fetched 17 row(s)
+```

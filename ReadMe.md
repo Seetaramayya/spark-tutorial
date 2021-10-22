@@ -19,6 +19,13 @@ select * from information_schema.columns where table_schema = 'information_schem
 select column_name, data_type, is_nullable from information_schema.columns where table_name = 'employees';
 ```
 
+
+### Docker Commands 
+
+```shell
+docker-compose -f ./spark-cluster-docker-compose.yml up
+docker exec -it spark-tutorial_spark_1 bash
+```
 ### TODOs 
 
 - In [PostgreSQL#L33](src/main/scala/learn/spark/basics/PostgreSQL.scala), I was expecting more records in database but fewer records exists, needs to be verified 
