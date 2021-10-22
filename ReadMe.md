@@ -17,6 +17,9 @@ select * from information_schema.columns where table_schema = 'information_schem
 # to describe table or use information_schema 
 \d employees
 select column_name, data_type, is_nullable from information_schema.columns where table_name = 'employees';
+
+# to find all tables 
+\dt
 ```
 
 
