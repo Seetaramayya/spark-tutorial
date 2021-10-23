@@ -1,8 +1,9 @@
 package learn.spark.rdd
 
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.{ DataFrame, Dataset, Row, SparkSession }
+import org.apache.spark.sql.{ DataFrame, DataFrameReader, Dataset, Encoders, Row, SparkSession }
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types.StructType
 
 import java.time.format.DateTimeFormatter
 import java.time.{ LocalDate, LocalDateTime }
@@ -21,6 +22,10 @@ object Stock {
       println(s"For $line => ${exception.getMessage}")
       None
   }
+
+  implicit val stockOrdering: Ordering[Stock] = Ordering.fromLessThan { case (stockA, stockB) =>
+    stockA.price < stockB.price
+  }
 }
 
 object BasicRDDs {
@@ -30,12 +35,15 @@ object BasicRDDs {
   // spark context is required for RDD
   private val sc = spark.sparkContext
 
-  private def loadDF(fileName: String, basePath: String = "src/main/resources/data/"): DataFrame = spark.read
-    .option("header", "true")
-    .option("inferSchema", "true")
-    .csv(fileName)
+  private def loadDF(
+      fileName: String,
+      maybeSchema: Option[StructType] = None,
+      basePath: String = "src/main/resources/data/"
+  ): DataFrame = {
+    val dataFrameReader: DataFrameReader = spark.read.option("header", "true")
+    maybeSchema.fold(dataFrameReader.option("inferSchema", "true"))(dataFrameReader.schema).csv(s"$basePath/$fileName")
+  }
 
-  private def convertToStock(line: String): Stock = ???
   def main(args: Array[String]): Unit = {
     // Convert Regular scala collection into RDD
     val regularCollection: Seq[Long] = (1L to 10000000L)
@@ -49,8 +57,9 @@ object BasicRDDs {
       .map(line => Stock.fromLine(line))
       .collect { case Some(stock) => stock }
 
-    val stocksDF: DataFrame            = loadDF("stocks.csv")
-    val stocksDSFromDF: Dataset[Stock] = stocksDF.as[Stock]
+    val schema: StructType             = Encoders.product[Stock].schema
+    val stocksDF: DataFrame            = loadDF("stocks.csv", Some(schema))
+    val stocksDSFromDF: Dataset[Stock] = stocksDF.as[Stock] // TODO Cannot up cast `date` from string to date.
 
     // Dataset -> RDD
     val stocksRDDFromDS: RDD[Stock] = stocksDF.as[Stock].rdd
@@ -75,5 +84,30 @@ object BasicRDDs {
     stocksDS.show()
     println(s"Total number of stocks are ${stocksRDD.count()}")
 
+    // RDD Transformation
+
+    // 1. How many microsoft stocks exists?
+    val totalMicrosoftStocks = stocksRDD
+      .filter(_.symbol == "MSFT") // filter operation is lazy
+      .count()                    // eager action
+
+    println(s"Total Microsoft stocks are $totalMicrosoftStocks")
+
+    // 2. Find all stock symbols
+    val stockSymbols: RDD[String] = stocksRDD.map(_.symbol).distinct() // distinct is lazy operation
+    stockSymbols.foreach(println)
+
+    // 3. min and max stock values
+    val minStock = stocksRDD.min() // requires implicit Ordering[T] which is available in companion
+    println(s"Min stock is $minStock")
+    println(s"Max stock is ${stocksRDD.max()}")
+
+    // 4. grouping
+    val averagePriceBySymbol: RDD[(String, Double)] = stocksRDD.groupBy(_.symbol).map { case (symbol, stocks) =>
+      val count = stocks.size
+      symbol -> stocks.map(_.price).sum / count
+    }
+
+    averagePriceBySymbol.foreach(println)
   }
 }
