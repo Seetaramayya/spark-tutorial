@@ -46,7 +46,7 @@ object BasicRDDs {
 
   def main(args: Array[String]): Unit = {
     // Convert Regular scala collection into RDD
-    val regularCollection: Seq[Long] = (1L to 10000000L)
+    val regularCollection: Seq[Long] = 1L to 10000000L
     val numbersRDD: RDD[Long]        = sc.parallelize(regularCollection)
     numbersRDD.toDF().show() // requires spark.implicits._ import
     println(s"Total number of elements are => ${numbersRDD.count()}")
@@ -57,9 +57,10 @@ object BasicRDDs {
       .map(line => Stock.fromLine(line))
       .collect { case Some(stock) => stock }
 
-    val schema: StructType             = Encoders.product[Stock].schema
-    val stocksDF: DataFrame            = loadDF("stocks.csv", Some(schema))
-    val stocksDSFromDF: Dataset[Stock] = stocksDF.as[Stock] // TODO Cannot up cast `date` from string to date.
+    val schema: StructType  = Encoders.product[Stock].schema
+    val stocksDF: DataFrame = loadDF("stocks.csv", Some(schema))
+    // inferSchema infers date column as string so if schema is not passed then converting to Stock will fail
+    val stocksDSFromDF: Dataset[Stock] = stocksDF.as[Stock]
 
     // Dataset -> RDD
     val stocksRDDFromDS: RDD[Stock] = stocksDF.as[Stock].rdd
