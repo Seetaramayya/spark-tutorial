@@ -188,3 +188,38 @@ OutputFormat	org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat
 Storage Properties	[header=true]
 Time taken: 0.065 seconds, Fetched 17 row(s)
 ```
+
+### RDDs (Resilient Distributed Datasets)
+
+RDD is distributed collections of JVM objects. In general, it is not good to work with RDDs unless we know a lot of spark internals. 
+Datasets are sufficient to work with most of the operations. 
+
+#### Comparison between RDDs vs Datasets 
+
+##### in common
+
+- collection API: map, flatMap, filter, take, reduce, etc...
+- union, count, distinct
+- groupBy, sortBy
+
+##### RDDs over Datasets
+
+- partition control: repartition, coalesec, partitioner, zipPartitions, mapPartitions
+- operation control: checkpoint, isCheckpointed, localCheckpoint, cache
+- storage control: cache, getStorageLevel, persist
+
+##### Datasets over RDDs
+
+- select and join
+
+Basic RDD creations and conversions are [here](src/main/scala/learn/spark/rdd/BasicRDDs.scala)
+
+- Convert Regular scala collection into RDD
+- Read RDD from a file
+- Convert Dataset -> RDD
+- Convert RDD[T]  -> Dataset[T]
+- Convert RDD[T]  -> DataFrame (is an alias to `Dataset[Row]`)
+
+# Resources 
+
+- [RDD](https://databricks.com/glossary/what-is-rdd)
