@@ -26,8 +26,20 @@ object Dependencies {
   // https://github.com/scalatest/scalatest
   lazy private val scalaTest = "org.scalatest" %% "scalatest" % "3.2.9" % "test"
 
+  lazy private val sprayJson = "io.spray" %% "spray-json" % "1.3.6"
+
+  // https://github.com/spray/spray-json
   lazy private val compileDependencies: Seq[ModuleID] =
-    Seq(mongoScalaDriver, postgresql, sparkCore, sparkSql, sparkSqlKafka, sparkStreaming, sparkStreamingKafka)
+    Seq(
+      mongoScalaDriver,
+      postgresql,
+      sparkCore,
+      sparkSql,
+      sparkSqlKafka,
+      sparkStreaming,
+      sparkStreamingKafka,
+      sprayJson
+    )
 
   lazy private val testDependencies: Seq[ModuleID] = Seq(scalaTest)
 
