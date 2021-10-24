@@ -5,3 +5,5 @@ target
 checkpoints/
 
 spark-warehouse/
+out/
+*.jar

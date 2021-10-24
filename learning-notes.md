@@ -220,6 +220,7 @@ Basic RDD creations and conversions are [here](src/main/scala/learn/spark/rdd/Ba
 - Convert RDD[T]  -> Dataset[T]
 - Convert RDD[T]  -> DataFrame (is an alias to `Dataset[Row]`)
 
-# Resources 
+# Resources
 
+- [Submit spark job doc](https://spark.apache.org/docs/latest/submitting-applications.html)
 - [RDD](https://databricks.com/glossary/what-is-rdd)

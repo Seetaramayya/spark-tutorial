@@ -1,0 +1,27 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  spark-master:
+    image: spydernaz/spark-master:latest
+    container_name: spark-master
+    environment:
+      - "SPARK_LOCAL_IP=spark-master"
+    ports:
+      - "4040:4040" # spark web UI
+      - "7077:7077" # spark port
+      - "9090:8080" # spark port
+    volumes:
+      - "./apps:/opt/spark-apps"
+      - "./data:/opt/spark-data"
+  spark-worker:
+    image: spydernaz/spark-master:latest
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=2G
+      - SPARK_DRIVER_MEMORY=256m
+      - SPARK_EXECUTOR_MEMORY=512m
+    volumes:
+      - "./apps:/opt/spark-apps"
+      - "./data:/opt/spark-data"

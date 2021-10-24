@@ -1,15 +1,10 @@
 package learn.spark.streaming
 
 import learn.spark.domain.Objects.Person
-import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark.SparkContext
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.streaming.dstream.{ DStream, ReceiverInputDStream }
+import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.{ Seconds, StreamingContext }
-import org.apache.spark.streaming.kafka010._
-import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
-import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 
 import java.sql.Date
 

@@ -37,7 +37,7 @@ object Dependencies {
       sparkSql,
       sparkSqlKafka,
       sparkStreaming,
-      sparkStreamingKafka,
+//      sparkStreamingKafka,
       sprayJson
     )
 

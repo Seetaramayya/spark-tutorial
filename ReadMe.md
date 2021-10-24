@@ -28,6 +28,7 @@ select column_name, data_type, is_nullable from information_schema.columns where
 ```shell
 docker-compose -f ./spark-cluster-docker-compose.yaml up
 docker exec -it spark-tutorial_spark_1 bash
+./bin/spark-shell # to start webui
 ```
 ### TODOs 
 
