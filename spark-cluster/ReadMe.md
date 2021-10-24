@@ -1,6 +1,8 @@
 # Test Deploy 
 
 - Copy `spark-tutorial.jar` to `spark-cluster/apps`
+  - Take the help of intellij to create `spark-tutorial.jar` (`Project Settings -> Artifacts` and `Build ->  Build Artifacts`)
+  - `sbt assembly` is not working for some reason, I suspect my merge strategy is wrong but did not investigate (TODO)
 - Bring the cluster up with the following command `docker-compose up --scale spark-worker=1`
 - Connect to master node and run the following command
 
