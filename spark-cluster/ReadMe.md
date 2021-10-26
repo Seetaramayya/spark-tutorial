@@ -7,9 +7,9 @@
 - Connect to master node and run the following command
 
 ```shell
-docker exec -it spark-master bash && /spark/bin/spark-submit \
+docker exec spark-master /spark/bin/spark-submit \
   --class learn.spark.deploy.TestDeploy \
-  --master spark://6ddc5d028936:7077 \
+  --master spark://spark-master:7077 \
   --deploy-mode client \
   --verbose --supervise \
   /opt/spark-apps/spark-tutorial.jar /opt/spark-data/movies.json /opt/spark-data/goodMovies

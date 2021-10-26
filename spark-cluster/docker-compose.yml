@@ -13,7 +13,8 @@ services:
       - "./apps:/opt/spark-apps"
       - "./data:/opt/spark-data"
   spark-worker:
-    image: spydernaz/spark-master:latest
+    image: spydernaz/spark-worker:latest
+    container_name: spark-worker
     depends_on:
       - spark-master
     environment:

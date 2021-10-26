@@ -1,6 +1,13 @@
 # Learning Spark
 
-  All the learning points are noted down [here](./learning-notes.md) for future references.
+  All the learning points are noted down [here](./learning-notes.md) for future references. 
+
+### How to submit spark job?
+
+ [submit-job.sh](./submit-job.sh) does the follwoing things 
+ - builds the jar
+ - starts spark cluster
+ - submits a job to the above cluster
 
 ### PostgreSQL commands
 
@@ -23,13 +30,6 @@ select column_name, data_type, is_nullable from information_schema.columns where
 ```
 
 
-### Docker Commands 
-
-```shell
-docker-compose -f ./spark-cluster-docker-compose.yaml up
-docker exec -it spark-tutorial_spark_1 bash
-./bin/spark-shell # to start webui
-```
 ### TODOs 
 
 - In [PostgreSQL#L33](src/main/scala/learn/spark/basics/PostgreSQL.scala), I was expecting more records in database but fewer records exists, needs to be verified 
