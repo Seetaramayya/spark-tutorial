@@ -4,6 +4,8 @@
 
 ### How to submit spark job?
 
+  [Simple Spark Code](./src/main/scala/learn/spark/deploy/TestDeploy.scala) is deployed to spark cluster using `submit-job.sh`
+
  [submit-job.sh](./submit-job.sh) does the follwoing things 
  - builds the jar
  - starts spark cluster
