@@ -28,17 +28,30 @@ object Dependencies {
 
   lazy private val sprayJson = "io.spray" %% "spray-json" % "1.3.6"
 
+  // https://json4s.org/
+  lazy private val json4sNative = "org.json4s" %% "json4s-native" % "4.0.4"
+
+  lazy private val avro = "org.apache.spark" %% "spark-avro" % "3.1.2"
+
+  // https://github.com/softwaremill/sttp
+  lazy private val sttp = "com.softwaremill.sttp.client3" %% "core" % "3.4.1"
+
+  // https://github.com/mongodb/mongo-java-driver
+  lazy private val mongodb = "org.mongodb" % "mongo-java-driver" % "3.12.10"
+
   // https://github.com/spray/spray-json
   lazy private val compileDependencies: Seq[ModuleID] =
     Seq(
+      avro,
       mongoScalaDriver,
       postgresql,
       sparkCore,
       sparkSql,
       sparkSqlKafka,
       sparkStreaming,
-//      sparkStreamingKafka,
-      sprayJson
+      // sparkStreamingKafka,
+      sprayJson,
+      sttp
     )
 
   lazy private val testDependencies: Seq[ModuleID] = Seq(scalaTest)

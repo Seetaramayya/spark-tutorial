@@ -18,6 +18,7 @@ object ReadAndWriteToKafka {
     */
   def readFromKafka(topicNames: String, bootstrapServers: String): Unit = {
     // https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html
+    // https://spark.apache.org/docs/latest/streaming-programming-guide.html
     val kafkaDF: DataFrame = spark.readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", bootstrapServers)
